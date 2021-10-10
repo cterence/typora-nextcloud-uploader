@@ -1,20 +1,18 @@
 import sys
 import os
 import ntpath
-
 import owncloud
 from dotenv import load_dotenv
 
 
 def main():
     load_dotenv()
-
-    oc = owncloud.Client(os.getenv("URL"))
-    oc.login(os.getenv("USERNAME"), os.getenv("PASSWORD"))
+    oc = owncloud.Client(os.getenv("NC_URL"))
+    oc.login(os.getenv("NC_USERNAME"), os.getenv("NC_PASSWORD"))
     for arg in sys.argv[1:]:
-        oc.put_file(f"{os.getenv('UPLOAD_DIRECTORY')}/{ntpath.basename(arg)}", arg)
+        oc.put_file(f"{os.getenv('NC_UPLOAD_DIRECTORY')}/{ntpath.basename(arg)}", arg)
         link = oc.share_file_with_link(
-            f"{os.getenv('UPLOAD_DIRECTORY')}/{ntpath.basename(arg)}"
+            f"{os.getenv('NC_UPLOAD_DIRECTORY')}/{ntpath.basename(arg)}"
         )
         print(f"{link.get_link()}/preview")
 
