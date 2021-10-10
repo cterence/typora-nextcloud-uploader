@@ -18,4 +18,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) == 1:
+        print('Usage: python3 uploader.py "/path/to/image1" "/path/to/image2" ...')
+        sys.exit(1)
+    else:
+        main()
